@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Weather App</title>
+</head>
+<body>
+
+
+  <div class="content">
+    <div class="card">
+        <form id="form" method="post" action="{{ url_for('index') }}">
+            <input type="text" id="city" name="city" placeholder="Enter your city here..." required>
+            <button type="submit" class="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+        <main>
+            {% if data %}
+                <h2> {{city}}, {{data.sys.country}}</h2>
+                <h2><i class="fa-solid fa-cloud" style="font-size: 100px;"></i></h2>
+                <h2>Temperature:</h2>
+                <h3>{{ data.main.temp }}°C</h3>
+                <div class="more-info">
+                    <div>
+                        <i class="fa-solid fa-water" style="font-size: 50px;"></i>
+                        <p>Humidity: <span>{{ data.main.humidity }}</span></p>
+                    </div>
+
+                    <div>
+                      <i class="fa-solid fa-temperature-full" style="font-size: 50px;"></i>
+                      <p>Max Temp: <span>{{ data.main.pressure }}</span></p>
+                    </adiv>
+                    
+                    <div>
+                        <i class="fa-solid fa-wind" style="font-size: 50px;"></i>
+                        <p>Wind speed: <span>{{ data.wind.speed }}km/h</span></p>
+                    </div>
+                </div>
+
+            {% endif %}
+        </main>
+    </div>
+    <div class="chart">
+      {% if plot_html %}
+            <div>{{ plot_html|safe }}</div>
+      {% endif %}
+    </div>
+</div>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap");
+
+body {
+  background-image: url("https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2076&q=80");
+  background-size: cover;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  height: 100vh;
+}
+
+.content{
+  display: flex;
+  justify-content: space-between;
+}
+
+::placeholder {
+  color: #fff;
+}
+
+input {
+  background-color: #575757;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 1rem;
+  min-width: 300px;
+  color: #fff;
+  transition: 0.2s;
+}
+
+input#search:hover {
+  background: #65747b;
+}
+
+input:focus {
+  outline: none;
+  align-items: center;
+  margin-bottom: 0;
+  padding-left: 85px;
+}
+
+.weather {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.weather h2 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  padding-left: 90px;
+}
+
+.card {
+  background: #000000b2;
+  width: 100%;
+  max-width: 470px;
+  height: 70%;
+  padding: 4em;
+  text-align: center;
+  border-radius: 30px;
+  color: white;
+  margin-top: 30px;
+}
+
+.more-info{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.more-info p {
+  font-size: 20px;
+}
+.more-info span {
+  font-weight: 600;
+}
+
+.search-button{
+  border: 0;
+  outline: 0;
+  background: #ebfffc;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+}
+    </style>
+
+</body>
+</html>
